@@ -1,16 +1,23 @@
 import Container from './util/Container'
-import actions from './providers/actions'
-import components from './providers/components'
+import app from './providers/app'
+import config from './providers/config'
+import redux from './providers/redux'
 import routing from './providers/routing'
-import other from './providers/other'
+
+import layout from './modules/layout/provider'
+import main from './modules/main/provider'
 
 export default () => {
-    let ioc = new Container();
+    let ioc = new Container()
 
-    actions(ioc);
-    components(ioc);
-    routing(ioc);
-    other(ioc);
+    app(ioc)
+    config(ioc)
+    redux(ioc)
+    routing(ioc)
 
-    return ioc;
-};
+    // Module providers go here
+    layout(ioc)
+    main(ioc)
+
+    return ioc
+}

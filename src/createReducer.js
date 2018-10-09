@@ -1,26 +1,11 @@
-import { combineReducers } from 'redux';
-import CONSTANTS from './actionTypes'
+import {combineReducers} from 'redux';
 
-import profile from './reducers/profile';
-import dashboard from './reducers/dashboard';
-import login from './reducers/login';
-import logout from './reducers/logout';
+import main from './modules/main/reducer'
 
 export default function(otherReducers = {}){
-    const reducer = combineReducers({
-        profile,
-        dashboard,
-        login,
-        logout,
+    return combineReducers({
+        main,
+
         ...otherReducers
-    });
-
-    return (state, action) => {
-        // Reset all state when logging out
-        if(action.type === CONSTANTS.LOGOUT_SUCCESS){
-            state = undefined
-        }
-
-        return reducer(state, action)
-    };
+    })
 }

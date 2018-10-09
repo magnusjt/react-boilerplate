@@ -1,8 +1,17 @@
-export default class Container {
+export default class Container{
     constructor(){
         this.services = {}
         this.isLoading = {}
         this.loaded = []
+
+        return new Proxy(this, {
+            get: (target, name) => {
+                if(!(name in this)){
+                    throw new Error(`Unknown service ${name}`)
+                }
+                return target[name]
+            }
+        })
     }
 
     service(name, cb){
@@ -20,11 +29,11 @@ export default class Container {
                     this.isLoading[name] = false
                 }
 
-                return this.services[name];
+                return this.services[name]
             },
             configurable: true,
             enumerable: true
-        });
+        })
 
         return this
     }
